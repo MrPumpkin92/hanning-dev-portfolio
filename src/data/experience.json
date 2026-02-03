@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "role": "Backend Developer",
+    "dates": "Dec 2025 – Present",
+    "company": "LeakSight (Western Cyber Society)",
+    "location": "Hybrid",
+    "description": [
+      "Tech Stack: Python, ML, Side-Channel Research",
+      "Developing backend services for cybersecurity research tools."
+    ]
+  },
+  {
+    "id": 2,
+    "role": "Software Developer",
+    "dates": "Nov 2025 – Present",
+    "company": "NCTTA",
+    "location": "Remote",
+    "description": [
+      "Tech Stack: C\\#, .NET Core, SQL, MVC",
+      "Building league management software for collegiate table tennis."
+    ]
+  },
+  {
+    "id": 3,
+    "role": "Software Engineer Intern",
+    "dates": "Sept 2023 – Dec 2023",
+    "company": "Match",
+    "location": "Remote",
+    "description": [
+      "Tech Stack: C++, Python, Linux",
+      "Contributed to core matching algorithms and system optimization."
+    ]
+  }
+]

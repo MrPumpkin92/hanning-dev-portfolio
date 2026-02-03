@@ -1,26 +1,69 @@
 [
-    {
-        "id": 1,
-        "title": "Network Traffic Analyzer",
-        "description": "A Python-based tool to capture and analyze packet data for suspicious activity.",
-        "tags": [
-            "Python",
-            "Wireshark",
-            "Security"
-        ],
-        "link": "#",
-        "type": "Personal"
-    },
-    {
-        "id": 2,
-        "title": "Secure Chat App",
-        "description": "End-to-End encrypted messaging application using AES-256.",
-        "tags": [
-            "Node.js",
-            "Crypto",
-            "Socket.io"
-        ],
-        "link": "#",
-        "type": "Class Project"
-    }
+  {
+    "id": 1,
+    "title": "GitNest (SACHacks)",
+    "description": "AI-powered developer tool.",
+    "tags": [
+      "Python",
+      "Gemini AI"
+    ],
+    "link": "#",
+    "type": "Project"
+  },
+  {
+    "id": 2,
+    "title": "XR-848",
+    "description": "Virtual reality experience.",
+    "tags": [
+      "C"
+    ],
+    "link": "#",
+    "type": "Project"
+  },
+  {
+    "id": 3,
+    "title": "NBA Predictive Analytics Model",
+    "description": "Data analysis tool for sports predictions.",
+    "tags": [
+      "Google Sheets",
+      "Apps Script"
+    ],
+    "link": "#",
+    "type": "Project"
+  },
+  {
+    "id": 4,
+    "title": "AeroDB",
+    "description": "Cloud-based database management system.",
+    "tags": [
+      "SQL",
+      "AWS",
+      "JavaScript"
+    ],
+    "link": "#",
+    "type": "Project"
+  },
+  {
+    "id": 5,
+    "title": "Secure Course Management System",
+    "description": "Secure web application for educational institutions.",
+    "tags": [
+      "Node.js",
+      "Express"
+    ],
+    "link": "#",
+    "type": "Project"
+  },
+  {
+    "id": 6,
+    "title": "MiniNet DNS Simulation",
+    "description": "Network security simulation project.",
+    "tags": [
+      "MiniNet",
+      "Linux",
+      "DNS"
+    ],
+    "link": "#",
+    "type": "Project"
+  }
 ]

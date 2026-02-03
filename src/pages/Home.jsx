@@ -29,6 +29,20 @@ const Home = () => {
                             borderRadius: '50px' // Extra bubbly
                         }}
                     >
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <img
+                                src="/backend/wei.png"
+                                alt="Profile"
+                                style={{
+                                    width: '150px',
+                                    height: '150px',
+                                    borderRadius: '50%',
+                                    objectFit: 'cover',
+                                    border: '4px solid rgba(255, 255, 255, 0.1)',
+                                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+                                }}
+                            />
+                        </div>
                         <h1 style={{
                             fontSize: '3.5rem',
                             marginBottom: '1rem',

@@ -6,7 +6,7 @@ const Navbar = () => {
         <div className={classes.navWrapper}>
             <nav className={classes.navbar}>
                 <div className={classes.logo}>
-                    FullStack<span style={{ color: 'var(--accent-color)' }}>.usr</span>
+                    <img src="/backend/wei.png" alt="Logo" style={{ height: '40px', borderRadius: '50%' }} />
                 </div>
                 <ul className={classes.navLinks}>
                     <li>

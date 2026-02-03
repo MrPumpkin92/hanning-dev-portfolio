@@ -1,10 +1,35 @@
 {
-    "name": "Adrian Hanning",
-    "title": "Aspiring Cybersecurity Specialist & Developer",
-    "summary": "Passionate about securing digital frontiers and building resilient systems. Transitioning into Cybersecurity with a strong foundation in development.",
+    "name": "Adrian Wei",
+    "title": "Software Engineering Student @ Western University",
+    "summary": "Software Engineering student graduating in 2027 with a strong foundation in C/C++ development, systems security, and full-stack applications. I have a passion for building innovative solutions that make a real impact.",
+    "bio_highlighted": "I have experience developing with <span class='highlight'>C++</span>, <span class='highlight'>Python</span>, <span class='highlight'>C#</span>, <span class='highlight'>Java</span>, <span class='highlight'>SQL</span>, and <span class='highlight'>.NET Core</span>. My focus areas include <span class='highlight'>Systems Security</span>, <span class='highlight'>Full-Stack Development</span>, and <span class='highlight'>AI Integration</span>. I'm currently leading backend development for cybersecurity research tools at LeakSight.",
+    "stats": [
+        {
+            "value": "2027",
+            "label": "Graduation"
+        },
+        {
+            "value": "MVP",
+            "label": "Varsity Athlete"
+        }
+    ],
+    "education": {
+        "school": "Western University",
+        "degree": "Bachelor of Engineering in Software Engineering",
+        "dates": "Expected Graduation: May 2027",
+        "honor": "Varsity Table Tennis MVP 2024-2025",
+        "coursework": [
+            "Algorithms & Data Structures",
+            "Network Security",
+            "Database Management Systems",
+            "Object Oriented Programming",
+            "Operating Systems"
+        ]
+    },
     "socials": {
         "github": "https://github.com/MrPumpkin92",
-        "linkedin": "#"
+        "linkedin": "https://linkedin.com/in/hanning-wei-92312423a22f/",
+        "email": "mailto:hanningwei92@gmail.com"
     },
     "resumePath": "/backend/HanningWeiResume.pdf"
 }
