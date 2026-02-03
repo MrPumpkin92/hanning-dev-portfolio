@@ -1,0 +1,141 @@
+:root {
+  --bg-color: #0d110e;
+  /* Very dark green-grey instead of void black */
+  --surface-color: rgba(66, 84, 59, 0.2);
+  /* Translucent Green */
+  --surface-hover: rgba(66, 84, 59, 0.4);
+
+  --primary-color: #7a9c6c;
+  /* Softer, pastel version of the requested green */
+  --accent-color: #a8cf98;
+  /* Bubbly highlight */
+
+  --text-main: #ffffff;
+  --text-secondary: #rgba(255, 255, 255, 0.7);
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-full: 9999px;
+
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(66, 84, 59, 0.3) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(40, 60, 40, 0.3) 0%, transparent 40%);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  /* Apple-style tight tracking */
+  color: var(--text-main);
+}
+
+/* Bubbly/Glass Cards */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  /* Lighten on hover */
+}
+
+/* Buttons */
+.bubble-btn {
+  background: var(--primary-color);
+  color: #0d110e;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Bouncy */
+}
+
+.bubble-btn:hover {
+  transform: scale(1.05);
+  background: var(--accent-color);
+}
+
+/* Text Selection */
+::selection {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--bg-color);
+}
+
+/* Layout Utilities */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Animation utilities */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.float-anim {
+  animation: float 6s ease-in-out infinite;
+}

@@ -1,0 +1,70 @@
+.navWrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    pointer-events: none;
+    /* Let clicks pass through outside the navbar */
+}
+
+.navbar {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    background: rgba(30, 40, 30, 0.6);
+    /* Dark semi-transparent green */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 0.75rem 2rem;
+    border-radius: 999px;
+    /* Capsule shape */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.navbar:hover {
+    background: rgba(30, 40, 30, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+    letter-spacing: -0.5px;
+}
+
+.navLinks {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    font-size: 0.95rem;
+}
+
+.link:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.active {
+    background: white;
+    color: black !important;
+    /* High contrast for active state */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}

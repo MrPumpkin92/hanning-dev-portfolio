@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "title": "Microsoft Certified: Azure Fundamentals",
+        "issuer": "Microsoft",
+        "date": "2024",
+        "filename": "AZ900_Hanning_Wei.pdf",
+        "path": "/backend/AZ900_Hanning_Wei.pdf"
+    },
+    {
+        "id": 2,
+        "title": "Certified in Cybersecurity (CC)",
+        "issuer": "ISC2",
+        "date": "2024",
+        "filename": "CC_Hanning_Wei.pdf",
+        "path": "/backend/CC_Hanning_Wei.pdf"
+    }
+]

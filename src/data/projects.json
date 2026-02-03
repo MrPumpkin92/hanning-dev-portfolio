@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "title": "Network Traffic Analyzer",
+        "description": "A Python-based tool to capture and analyze packet data for suspicious activity.",
+        "tags": [
+            "Python",
+            "Wireshark",
+            "Security"
+        ],
+        "link": "#",
+        "type": "Personal"
+    },
+    {
+        "id": 2,
+        "title": "Secure Chat App",
+        "description": "End-to-End encrypted messaging application using AES-256.",
+        "tags": [
+            "Node.js",
+            "Crypto",
+            "Socket.io"
+        ],
+        "link": "#",
+        "type": "Class Project"
+    }
+]
