@@ -1,0 +1,143 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Adrian Wei — Software Engineer',
+  description = 'Software Engineering student specializing in Cybersecurity and Secure SDLC. ISC2 Certified. Western University.'
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Adrian Wei",
+    "email": "hanningwei92@gmail.com",
+    "alumniOf": "University of Western Ontario",
+    "jobTitle": "Software Engineering Student",
+    "knowsAbout": ["Cybersecurity", "Software Development", "Machine Learning"]
+  }
+  </script>
+</head>
+<body class="grid-bg">
+  <canvas id="cursor-canvas"></canvas>
+  <Nav />
+  <main>
+    <slot />
+  </main>
+
+  <!-- Cursor aura effect -->
+  <script>
+    const canvas = document.getElementById('cursor-canvas') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d')!;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    const particles: { x: number; y: number; vx: number; vy: number; life: number; size: number }[] = [];
+    let mx = -999, my = -999;
+
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      for (let i = 0; i < 2; i++) {
+        particles.push({
+          x: mx, y: my,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: (Math.random() - 0.5) * 1.5,
+          life: 1,
+          size: Math.random() * 2 + 0.5
+        });
+      }
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx; p.y += p.vy; p.life -= 0.04;
+        if (p.life <= 0) { particles.splice(i, 1); continue; }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0, 229, 255, ${p.life * 0.4})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Konami Code Easter Egg
+    const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let ki = 0;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === KONAMI[ki]) { ki++; } else { ki = 0; }
+      if (ki === KONAMI.length) {
+        ki = 0;
+        // Flash screen and show secret message
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+          position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;
+          background:rgba(0,0,0,0.95);font-family:'JetBrains Mono',monospace;color:#00e5ff;
+          flex-direction:column;gap:1rem;cursor:pointer;
+        `;
+        overlay.innerHTML = `
+          <div style="font-size:11px;letter-spacing:0.2em;color:#7c3aed">// KONAMI CODE ACTIVATED</div>
+          <div style="font-size:2rem;font-weight:700">SECURITY CLEARANCE GRANTED</div>
+          <div style="font-size:12px;color:#7a7a9a;max-width:400px;text-align:center">
+            You found the Easter egg. Adrian also found side-channel timing leaks.<br>
+            You two would get along.
+          </div>
+          <div style="font-size:10px;color:#3a3a5a;margin-top:2rem">[ click anywhere to close ]</div>
+        `;
+        overlay.addEventListener('click', () => overlay.remove());
+        document.body.appendChild(overlay);
+      }
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+  <style is:global>
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "adrian-wei-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "parse-cv": "npx tsx scripts/parse-cv.ts"
+  },
+  "dependencies": {
+    "@astrojs/vercel": "^8.0.0",
+    "astro": "^4.16.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

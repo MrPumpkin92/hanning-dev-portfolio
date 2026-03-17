@@ -1,0 +1,121 @@
+---
+const links = [
+  { href: '#experience', label: 'exp' },
+  { href: '#projects', label: 'projects' },
+  { href: '#skills', label: 'skills' },
+  { href: '#contact', label: 'contact' },
+];
+---
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="logo-bracket">[</span>
+      <span class="logo-name">aw</span>
+      <span class="logo-bracket">]</span>
+    </a>
+    <div class="nav-links">
+      {links.map((link, i) => (
+        <a href={link.href} class="nav-link">
+          <span class="nav-index">0{i + 1}.</span>
+          {link.label}
+        </a>
+      ))}
+      <a href="/admin" class="nav-link nav-admin" title="CV Import">
+        <span>admin</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<style>
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1rem 0;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+nav.scrolled {
+  background: rgba(6, 6, 8, 0.92);
+  border-bottom-color: var(--border);
+  backdrop-filter: blur(12px);
+}
+
+.nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text) !important;
+  letter-spacing: -0.02em;
+}
+
+.logo-bracket { color: var(--accent); }
+.logo-name { color: var(--text); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-size: 12px;
+  color: var(--text-muted) !important;
+  letter-spacing: 0.05em;
+  transition: color var(--transition) !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-link:hover {
+  color: var(--text) !important;
+  opacity: 1 !important;
+}
+
+.nav-index {
+  color: var(--accent);
+  font-size: 10px;
+}
+
+.nav-admin {
+  color: var(--text-dim) !important;
+  font-size: 10px;
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 3px;
+  transition: all var(--transition) !important;
+}
+
+.nav-admin:hover {
+  border-color: var(--accent-2) !important;
+  color: var(--accent-2) !important;
+  opacity: 1 !important;
+}
+
+@media (max-width: 600px) {
+  .nav-index { display: none; }
+  .nav-links { gap: 1.2rem; }
+}
+</style>
+
+<script>
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) nav?.classList.add('scrolled');
+    else nav?.classList.remove('scrolled');
+  });
+</script>
