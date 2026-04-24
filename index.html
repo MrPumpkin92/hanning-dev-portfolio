@@ -1,0 +1,1096 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Han Ning Wei | Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Portfolio of Han Ning Wei, a Full-Stack Developer focused on secure systems, full-stack architecture, and practical product delivery."
+    />
+    <meta
+      name="keywords"
+      content="Han Ning Wei, Full-Stack Developer, Cybersecurity, TypeScript, React, Node.js, Python, Java, AWS, .NET"
+    />
+    <meta name="author" content="Han Ning Wei" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Han Ning Wei | Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Full-Stack Developer building secure, scalable systems across web, cloud, and networked environments."
+    />
+    <meta property="og:url" content="https://example.com" />
+    <meta property="og:image" content="https://example.com/og-image.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Han Ning Wei | Full-Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Full-Stack Developer building secure, scalable systems across web, cloud, and networked environments."
+    />
+    <meta name="twitter:image" content="https://example.com/og-image.jpg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #f8f8f7;
+        --surface: #ffffff;
+        --text: #101114;
+        --muted: #5a5f69;
+        --line: #dbdde2;
+        --accent: #2b6e62;
+        --max-width: 1120px;
+        --radius: 14px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Manrope", sans-serif;
+        line-height: 1.7;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::selection {
+        background: rgba(43, 110, 98, 0.18);
+      }
+
+      .container {
+        width: min(100% - 2.4rem, var(--max-width));
+        margin-inline: auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--bg) 92%, #fff 8%);
+        backdrop-filter: blur(8px);
+      }
+
+      .nav-wrap {
+        min-height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .brand {
+        text-decoration: none;
+        color: inherit;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+
+      .brand-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+        border: 1.5px solid var(--accent);
+        display: grid;
+        place-items: center;
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-family: "IBM Plex Mono", monospace;
+      }
+
+      .brand-text {
+        font-family: "Sora", sans-serif;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 0.93rem;
+        font-weight: 500;
+        transition: color 0.2s ease;
+      }
+
+      .nav-link:hover,
+      .nav-link:focus-visible,
+      .nav-link.active {
+        color: var(--accent);
+      }
+
+      .menu-btn {
+        display: none;
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .menu-btn span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: var(--text);
+        margin: 3px auto;
+      }
+
+      .section {
+        padding: 6rem 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .hero {
+        min-height: calc(100vh - 76px);
+        display: grid;
+        align-items: center;
+        border-top: 0;
+      }
+
+      .hero-layout {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 1.2rem;
+        align-items: center;
+      }
+
+      .hero-copy {
+        max-width: 64ch;
+      }
+
+      .pfp-wrap {
+        justify-self: end;
+        width: min(100%, 360px);
+        aspect-ratio: 1 / 1;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: #f1f2f4;
+      }
+
+      .pfp {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        transform-origin: center top;
+        transform: scale(1.14);
+        display: block;
+      }
+
+      .eyebrow {
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.8rem;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-family: "Sora", sans-serif;
+        letter-spacing: -0.02em;
+      }
+
+      .hero-title {
+        margin-top: 0.75rem;
+        font-size: clamp(2.15rem, 7vw, 4.75rem);
+        line-height: 1.05;
+      }
+
+      .hero-role {
+        margin-top: 0.9rem;
+        color: var(--muted);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.95rem;
+      }
+
+      .hero-tagline {
+        max-width: 62ch;
+        margin: 1.1rem 0 0;
+        font-size: clamp(1rem, 2vw, 1.12rem);
+        color: #22252b;
+      }
+
+      .hero-actions {
+        margin-top: 1.8rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+
+      .btn {
+        text-decoration: none;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        padding: 0.74rem 1.05rem;
+        font-weight: 600;
+        font-size: 0.94rem;
+        transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .btn-primary:hover,
+      .btn-primary:focus-visible {
+        background: #21574d;
+        transform: translateY(-1px);
+      }
+
+      .btn-ghost {
+        background: var(--surface);
+        color: var(--text);
+        border-color: var(--line);
+      }
+
+      .btn-ghost:hover,
+      .btn-ghost:focus-visible {
+        border-color: #bbc2cc;
+        transform: translateY(-1px);
+      }
+
+      .scroll-indicator {
+        margin-top: 2.2rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        color: var(--muted);
+        font-size: 0.84rem;
+        font-family: "IBM Plex Mono", monospace;
+      }
+
+      .mouse {
+        width: 22px;
+        height: 34px;
+        border: 1.5px solid #8a919f;
+        border-radius: 11px;
+        position: relative;
+      }
+
+      .mouse::after {
+        content: "";
+        width: 4px;
+        height: 7px;
+        border-radius: 99px;
+        background: #8a919f;
+        position: absolute;
+        left: 50%;
+        top: 7px;
+        transform: translateX(-50%);
+        animation: scroll-dot 1.5s infinite ease;
+      }
+
+      @keyframes scroll-dot {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, 0);
+        }
+        35% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, 10px);
+        }
+      }
+
+      .section-header {
+        margin-bottom: 1.9rem;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .section-title {
+        font-size: clamp(1.5rem, 2.9vw, 2rem);
+      }
+
+      .section-index {
+        font-family: "IBM Plex Mono", monospace;
+        color: var(--accent);
+        font-size: 0.8rem;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.45fr 1fr;
+        gap: 1rem;
+      }
+
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 1.1rem;
+      }
+
+      .about-text {
+        margin: 0;
+        color: #24272e;
+      }
+
+      .currently-title {
+        margin: 0 0 0.55rem;
+        font-family: "IBM Plex Mono", monospace;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        color: var(--accent);
+      }
+
+      .currently-list {
+        margin: 0;
+        padding-left: 1rem;
+        color: #24272e;
+      }
+
+      .currently-list li + li {
+        margin-top: 0.45rem;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.9rem;
+      }
+
+      .skill-group h3 {
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        font-family: "IBM Plex Mono", monospace;
+        letter-spacing: 0.08em;
+        color: #3b4451;
+        margin-bottom: 0.75rem;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+
+      .tag {
+        border: 1px solid #cfd4dc;
+        background: #fff;
+        color: #25303a;
+        border-radius: 999px;
+        padding: 0.34rem 0.65rem;
+        font-size: 0.82rem;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.9rem;
+      }
+
+      .project-card {
+        border: 1px solid var(--line);
+        background: var(--surface);
+        border-radius: var(--radius);
+        padding: 1.05rem;
+        display: grid;
+        gap: 0.85rem;
+        align-content: start;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-4px);
+        border-color: #b9c2cd;
+      }
+
+      .project-name {
+        font-size: 1.12rem;
+      }
+
+      .project-desc {
+        margin: 0;
+        color: #252b34;
+      }
+
+      .project-links {
+        display: flex;
+        gap: 0.8rem;
+      }
+
+      .project-link {
+        text-decoration: none;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.8rem;
+        color: var(--muted);
+        border-bottom: 1px solid transparent;
+      }
+
+      .project-link:hover,
+      .project-link:focus-visible {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .project-points {
+        margin-top: 1rem;
+      }
+
+      .project-points ul {
+        margin: 0;
+        padding-left: 1.1rem;
+        color: #232832;
+      }
+
+      .project-points li + li {
+        margin-top: 0.45rem;
+      }
+
+      .project-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.7rem;
+      }
+
+      .project-meta {
+        margin: 0.2rem 0 0.65rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .timeline {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 0.9rem;
+      }
+
+      .timeline-item {
+        border: 1px solid var(--line);
+        background: var(--surface);
+        border-radius: var(--radius);
+        padding: 1rem;
+      }
+
+      .role-line {
+        font-size: 1rem;
+      }
+
+      .role-meta {
+        margin: 0.2rem 0 0.65rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .impact-list {
+        margin: 0;
+        padding-left: 1.1rem;
+      }
+
+      .impact-list li + li {
+        margin-top: 0.45rem;
+      }
+
+      .contact-panel {
+        display: grid;
+        gap: 0.8rem;
+      }
+
+      .contact-panel p {
+        margin: 0;
+      }
+
+      .email {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(43, 110, 98, 0.45);
+        font-weight: 600;
+      }
+
+      .email:hover,
+      .email:focus-visible {
+        border-bottom-color: var(--accent);
+      }
+
+      .socials {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .socials a {
+        text-decoration: none;
+        color: var(--muted);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.83rem;
+        border-bottom: 1px solid transparent;
+      }
+
+      .socials a:hover,
+      .socials a:focus-visible {
+        color: var(--text);
+        border-color: #a3acb8;
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--line);
+        padding: 1.1rem 0 2rem;
+        color: #6a727e;
+        font-size: 0.88rem;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+
+      .reveal.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 980px) {
+        .projects-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 840px) {
+        .menu-btn {
+          display: inline-block;
+        }
+
+        nav ul {
+          position: absolute;
+          top: 76px;
+          left: 0;
+          right: 0;
+          background: var(--bg);
+          border-bottom: 1px solid var(--line);
+          display: grid;
+          gap: 0.65rem;
+          padding: 1rem 1.2rem;
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(-8px);
+          transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        nav ul.open {
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateY(0);
+        }
+
+        .about-grid,
+        .skills-grid,
+        .projects-grid,
+        .hero-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .pfp-wrap {
+          justify-self: start;
+          width: min(100%, 330px);
+        }
+      }
+
+      @media (max-width: 520px) {
+        .container {
+          width: min(100% - 1.25rem, var(--max-width));
+        }
+
+        .section {
+          padding: 4.6rem 0;
+        }
+
+        .hero-actions {
+          width: 100%;
+        }
+
+        .hero-actions .btn {
+          flex: 1;
+          text-align: center;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="#hero" class="brand" aria-label="Go to top">
+          <span class="brand-mark">HW</span>
+          <span class="brand-text">Han Ning Wei</span>
+        </a>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navList">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav aria-label="Primary">
+          <ul id="navList">
+            <li><a class="nav-link" href="#hero">Home</a></li>
+            <li><a class="nav-link" href="#about">About</a></li>
+            <li><a class="nav-link" href="#skills">Skills</a></li>
+            <li><a class="nav-link" href="#experience">Experience</a></li>
+            <li><a class="nav-link" href="#projects">Projects</a></li>
+            <li><a class="nav-link" href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section hero" id="hero">
+        <div class="container reveal hero-layout">
+          <div class="hero-copy">
+            <p class="eyebrow">Portfolio</p>
+            <h1 class="hero-title">Han Ning Wei</h1>
+            <p class="hero-role">Full-Stack Developer</p>
+            <p class="hero-tagline">
+              I build secure, production-ready software that balances clean engineering standards with measurable product impact.
+            </p>
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-primary">View Projects</a>
+              <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+            </div>
+            <div class="scroll-indicator" aria-hidden="true">
+              <span class="mouse"></span>
+              <span>Scroll</span>
+            </div>
+          </div>
+
+          <div class="pfp-wrap">
+            <img class="pfp" src="PFP.jpg" alt="Portrait of Han Ning Wei" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="container reveal">
+          <div class="section-header">
+            <h2 class="section-title">About</h2>
+            <span class="section-index">01</span>
+          </div>
+          <div class="about-grid">
+            <article class="panel">
+              <p class="about-text">
+                I am a Software Engineering student specializing in cybersecurity and secure SDLC, with hands-on experience across side-channel research, secure migrations, and full-stack delivery. I enjoy turning complex technical constraints into reliable systems that teams can maintain. My work sits at the intersection of secure architecture, pragmatic product engineering, and execution discipline.
+              </p>
+            </article>
+            <aside class="panel">
+              <h3 class="currently-title">Currently</h3>
+              <ul class="currently-list">
+                <li>Building robust migration workflows in .NET Core MVC for large-scale university sports operations.</li>
+                <li>Learning deeper kernel and systems-level performance/security design.</li>
+                <li>Reading and applying secure architecture principles in cloud-native systems.</li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <div class="container reveal">
+          <div class="section-header">
+            <h2 class="section-title">Skills &amp; Tech Stack</h2>
+            <span class="section-index">02</span>
+          </div>
+
+          <div class="skills-grid">
+            <article class="panel skill-group">
+              <h3>Languages</h3>
+              <div class="tags">
+                <span class="tag">TypeScript</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Python</span>
+                <span class="tag">Java</span>
+                <span class="tag">C++</span>
+                <span class="tag">C#</span>
+                <span class="tag">SQL</span>
+                <span class="tag">HTML/CSS</span>
+              </div>
+            </article>
+
+            <article class="panel skill-group">
+              <h3>Frontend</h3>
+              <div class="tags">
+                <span class="tag">React.js</span>
+                <span class="tag">Angular</span>
+                <span class="tag">React Native</span>
+                <span class="tag">Responsive UI</span>
+                <span class="tag">Accessibility</span>
+              </div>
+            </article>
+
+            <article class="panel skill-group">
+              <h3>Backend</h3>
+              <div class="tags">
+                <span class="tag">Node.js</span>
+                <span class="tag">Express</span>
+                <span class="tag">Django</span>
+                <span class="tag">Flask</span>
+                <span class="tag">.NET Core MVC</span>
+                <span class="tag">REST APIs</span>
+              </div>
+            </article>
+
+            <article class="panel skill-group">
+              <h3>Databases</h3>
+              <div class="tags">
+                <span class="tag">PostgreSQL</span>
+                <span class="tag">MongoDB</span>
+                <span class="tag">DynamoDB</span>
+                <span class="tag">Redis</span>
+                <span class="tag">MySQL</span>
+              </div>
+            </article>
+
+            <article class="panel skill-group">
+              <h3>Cloud &amp; Tools</h3>
+              <div class="tags">
+                <span class="tag">AWS</span>
+                <span class="tag">Azure</span>
+                <span class="tag">Docker</span>
+                <span class="tag">Git</span>
+                <span class="tag">GitHub</span>
+                <span class="tag">VS Code</span>
+                <span class="tag">Linux</span>
+                <span class="tag">Wireshark</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="experience">
+        <div class="container reveal">
+          <div class="section-header">
+            <h2 class="section-title">Experience</h2>
+            <span class="section-index">03</span>
+          </div>
+
+          <ul class="timeline">
+            <li class="timeline-item">
+              <h3 class="role-line">NCTTA · Software Developer · 2025 – Present</h3>
+              <p class="role-meta">Remote / Toronto, ON</p>
+              <ul class="impact-list">
+                <li>Migrated legacy PHP workflows to .NET Core MVC, preserving content parity and improving tournament operations across 150+ universities.</li>
+                <li>Built native tooling for bracket generation and seeding, improving tournament execution efficiency by 40%.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <h3 class="role-line">Match · Software Developer Intern · 2024</h3>
+              <p class="role-meta">Toronto, ON</p>
+              <ul class="impact-list">
+                <li>Engineered multiple iOS-facing interfaces and optimized API integration between React Native clients and Django services, accelerating delivery by two weeks.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <h3 class="role-line">LeakSight (Western Cyber Society) · Backend Developer · 2025 – Present</h3>
+              <p class="role-meta">London, ON</p>
+              <ul class="impact-list">
+                <li>Developed a modular Python side-channel analysis pipeline covering ingestion, training, evaluation, and visualization for leakage classification research.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="container reveal">
+          <div class="section-header">
+            <h2 class="section-title">Projects</h2>
+            <span class="section-index">04</span>
+          </div>
+
+          <ul class="timeline">
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">Kogtion Auction (Kognitive Solutions Inc.)</h3>
+                <span class="section-index">Jan 2026 - Apr 2026</span>
+              </div>
+              <p class="project-meta">Lead Developer · Angular, Express, PostgreSQL · Toronto, ON</p>
+              <ul class="impact-list">
+                <li>Designed and implemented a real-time private auction platform using Angular and Express, facilitating internal corporate events and bidding.</li>
+                <li>Architected a secure and scalable database layer utilizing PostgreSQL and Supabase, ensuring real-time state updates and data persistence.</li>
+                <li>Maintained rigorous documentation standards using Confluence and Jira in an Agile environment to track feature development and system logic.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">GitNest (SACHacks)</h3>
+                <span class="section-index">Mar 2025</span>
+              </div>
+              <p class="project-meta">Lead Developer · Python, Requests, Gemini AI · London, ON</p>
+              <div class="project-links">
+                <a href="https://github.com/Thomson-Lam/Git-Nest" class="project-link">GitHub</a>
+              </div>
+              <ul class="impact-list">
+                <li>Built an AI-assisted analytics service using Gemini API with secure REST endpoints to protect sensitive GitHub repository data.</li>
+                <li>Developed data transformation pipelines with integrated security monitoring to support incident investigation and threat detection.</li>
+                <li>Implemented rigid authentication mechanisms to safeguard private metadata while providing high-level AI-driven project insights.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">XR-848</h3>
+                <span class="section-index">Jan 2025 - May 2025</span>
+              </div>
+              <p class="project-meta">Software Developer · C#, Unity, Git · London, ON</p>
+              <ul class="impact-list">
+                <li>Developed an interactive Unity application, integrating complex gameplay mechanics, animations, and system logic for seamless interaction.</li>
+                <li>Managed collaborative development through Git, utilizing feature branching and pull requests to maintain strict version control.</li>
+                <li>Applied spatial hashing and octrees for collision detection and real-time performance optimization in a 3D environment.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">NBA Predictive Analytics Model</h3>
+                <span class="section-index">Nov 2024 - Jan 2025</span>
+              </div>
+              <p class="project-meta">Data Analyst · Google Sheets, API, Google Cloud, Python, JSON</p>
+              <ul class="impact-list">
+                <li>Built a predictive analytics workflow using Google Sheets to forecast NBA player performance from historical data with regression and forecasting functions.</li>
+                <li>Integrated Python scripts with the Google Sheets API to automate data ingestion, cleaning, and model output updates.</li>
+                <li>Implemented no-code ML (Simple ML for Sheets) to prototype classification and regression models and compare performance with custom Python models.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">Secure Course Management System</h3>
+                <span class="section-index">Oct 2025</span>
+              </div>
+              <p class="project-meta">Full Stack Developer · Node.js, Express, JavaScript · London, ON</p>
+              <div class="project-links">
+                <a href="https://github.com/MrPumpkin92/CourseManagement" class="project-link">GitHub</a>
+              </div>
+              <ul class="impact-list">
+                <li>Implemented secure authentication using custom-encrypted tokens to protect session data and prevent unauthorized account access.</li>
+                <li>Applied OWASP security best practices, including input validation and SQL injection prevention for all RESTful API endpoints.</li>
+                <li>Designed a responsive front-end architecture that securely interfaces with backend logic while maintaining a small attack surface.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">AeroDB</h3>
+                <span class="section-index">Sep 2025 - Dec 2025</span>
+              </div>
+              <p class="project-meta">Database Designer · SQL, AWS, JavaScript · London, ON</p>
+              <ul class="impact-list">
+                <li>Designed a relational schema transforming conceptual models into normalized (3NF/BCNF) structures for robust data integrity.</li>
+                <li>Constructed automated data pipelines to ingest and transform raw schedules into normalized relational tables on AWS infrastructure.</li>
+                <li>Optimized SQL query performance for core entities including Flight and Crew, ensuring high availability and low latency for reservation searches.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">MiniNet DNS Simulation</h3>
+                <span class="section-index">Nov 2025</span>
+              </div>
+              <p class="project-meta">Networking Lab · MiniNet, Linux, DNS · London, ON</p>
+              <ul class="impact-list">
+                <li>Deployed a virtual network using MiniNet to simulate DNS infrastructure, configuring recursive and authoritative servers for resolution.</li>
+                <li>Analyzed packet captures via Wireshark to troubleshoot query-response cycles and verify resource record integrity.</li>
+                <li>Evaluated network performance under simulated traffic to identify potential bottlenecks and security vulnerabilities in the name resolution process.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">P2P Image Sharing Network</h3>
+                <span class="section-index">Mar 2026</span>
+              </div>
+              <p class="project-meta">Networking Lab · JavaScript, Node.js, TCP sockets · London, ON</p>
+              <div class="project-links">
+                <a href="https://github.com/MrPumpkin92/p2pImageSharingNetwork" class="project-link">GitHub</a>
+              </div>
+              <ul class="impact-list">
+                <li>Implemented Kademlia-inspired DHT routing (XOR distance, bucket refresh, closest-peer forwarding) across multiple peers.</li>
+                <li>Developed end-to-end request/response flow for distributed image search and transfer, including forwarding, result propagation, and local cache and file serving.</li>
+                <li>Engineered protocol header parsing and binary payload handling using Node Buffer and filesystem APIs.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">StocksTrader AI Workbench</h3>
+                <span class="section-index">Mar 2026</span>
+              </div>
+              <p class="project-meta">Personal · Python, Streamlit, scikit-learn, PyTorch, TensorFlow · London, ON</p>
+              <div class="project-links">
+                <a href="https://github.com/MrPumpkin92/StocksTrader" class="project-link">GitHub</a>
+              </div>
+              <ul class="impact-list">
+                <li>Built and shipped an interactive stock-analysis web app in Python (Streamlit) that supports two-symbol comparative analysis and model-driven next-day movement prediction.</li>
+                <li>Designed a modular ML pipeline with feature engineering, model training, inference, and score aggregation across Black-Scholes, VIX signals, MLP, LSTM, and transfer learning.</li>
+                <li>Engineered an S&amp;P 500 ranking workflow that evaluates a large ticker universe and surfaces top-5 candidates by predicted next-day performance.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">Automatic Temperature Fan</h3>
+                <span class="section-index">Mar 2026</span>
+              </div>
+              <p class="project-meta">Final Project · C, GPIO, Register Firmware, Python, Microcontroller · London, ON</p>
+              <div class="project-links">
+                <a href="https://github.com/MrPumpkin92/automatic_temperature_fan/blob/main/ITERATION_HISTORY.md" class="project-link">GitHub</a>
+              </div>
+              <ul class="impact-list">
+                <li>Built a smart temperature-controlled fan application on MSP430G2553, improving control reliability with deterministic 100 ms updates by implementing interrupt-driven scheduling, ADC sampling, and PWM output at the register level.</li>
+                <li>Implemented dual-mode user control (Automatic and Manual), improving usability and state clarity by adding debounced button-based mode switching and LED mode indicators.</li>
+                <li>Increased confidence in functional correctness, validated by 7 passing unit tests, by creating a Python-based logic model and automated tests for thresholds, debounce, mode transitions, and duty mapping.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">Kernel-Level Energy-Aware CPU Scheduling (xv6)</h3>
+                <span class="section-index">Mar 2026</span>
+              </div>
+              <p class="project-meta">Final Project · RISC-V assembly, Makefile shell, Python, Perl · London, ON</p>
+              <div class="project-links">
+                <a href="https://github.com/shark1Martin/group-14-OS" class="project-link">GitHub</a>
+              </div>
+              <ul class="impact-list">
+                <li>Built an energy-aware process scheduler in xv6-riscv that improved policy-driven CPU allocation, measured by per-process energy tracking and deterministic low-energy deprioritization, by adding kernel-level accounting fields, tick-based charging on timer interrupts, and a three-pass fallback scheduler to preserve liveness.</li>
+                <li>Delivered end-to-end kernel-to-user observability for scheduler behavior, measured by successful runtime reporting of budget and consumption values in repeated tests, by implementing a new getenergy system call, syscall table wiring, safe copyout handling, and user-space API and stubs.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="container reveal">
+          <div class="section-header">
+            <h2 class="section-title">Contact</h2>
+            <span class="section-index">05</span>
+          </div>
+
+          <article class="panel contact-panel">
+            <p>I am open to opportunities where engineering quality, security, and user impact are held to the same standard.</p>
+            <p><a class="email" href="mailto:hanningwei92@gmail.com">hanningwei92@gmail.com</a></p>
+            <div class="socials" aria-label="Social links">
+              <a href="https://github.com/MrPumpkin92">GitHub</a>
+              <a href="https://www.linkedin.com/in/hanning-wei-92312423a22f/">LinkedIn</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">© <span id="year"></span> Han Ning Wei. Built with precision.</div>
+    </footer>
+
+    <script>
+      const menuBtn = document.getElementById("menuBtn");
+      const navList = document.getElementById("navList");
+      const navLinks = document.querySelectorAll(".nav-link");
+      const sections = document.querySelectorAll("main section[id]");
+      const revealBlocks = document.querySelectorAll(".reveal");
+
+      menuBtn.addEventListener("click", () => {
+        const open = navList.classList.toggle("open");
+        menuBtn.setAttribute("aria-expanded", String(open));
+      });
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          navList.classList.remove("open");
+          menuBtn.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      const activeObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.getAttribute("id");
+            navLinks.forEach((link) => {
+              link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+            });
+          });
+        },
+        {
+          rootMargin: "-45% 0px -45% 0px",
+          threshold: 0.01,
+        }
+      );
+
+      sections.forEach((section) => activeObserver.observe(section));
+
+      const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          });
+        },
+        {
+          threshold: 0.16,
+        }
+      );
+
+      revealBlocks.forEach((block) => revealObserver.observe(block));
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
