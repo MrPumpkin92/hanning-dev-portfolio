@@ -10,7 +10,7 @@
     />
     <meta
       name="keywords"
-      content="Han Ning Wei, Full-Stack Developer, Cybersecurity, TypeScript, React, Node.js, Python, Java, AWS, .NET"
+      content="Han Ning Wei, Full-Stack Developer, Cybersecurity, ISC2 CC, Azure AZ-900, eJPT, TypeScript, React, Node.js, Python, Java, AWS, .NET"
     />
     <meta name="author" content="Han Ning Wei" />
 
@@ -409,6 +409,66 @@
         font-size: 0.82rem;
       }
 
+      .certs-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.9rem;
+      }
+
+      .cert-card {
+        display: grid;
+        gap: 0.55rem;
+        align-content: start;
+      }
+
+      .cert-status {
+        justify-self: start;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 0.22rem 0.55rem;
+        border-radius: 999px;
+      }
+
+      .cert-status.earned {
+        color: var(--accent);
+        background: rgba(43, 110, 98, 0.1);
+        border: 1px solid rgba(43, 110, 98, 0.32);
+      }
+
+      .cert-status.progress {
+        color: #936300;
+        background: rgba(180, 130, 0, 0.1);
+        border: 1px solid rgba(180, 130, 0, 0.32);
+      }
+
+      .cert-name {
+        font-size: 1rem;
+      }
+
+      .cert-issuer {
+        margin: 0;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.82rem;
+        color: var(--muted);
+      }
+
+      .cert-desc {
+        margin: 0;
+        color: #24272e;
+        font-size: 0.9rem;
+      }
+
+      .edu-block + .edu-block {
+        margin-top: 1rem;
+      }
+
+      .edu-text {
+        margin: 0;
+        color: #24272e;
+      }
+
       .projects-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -580,7 +640,8 @@
       }
 
       @media (max-width: 980px) {
-        .projects-grid {
+        .projects-grid,
+        .certs-grid {
           grid-template-columns: 1fr 1fr;
         }
       }
@@ -615,6 +676,7 @@
         .about-grid,
         .skills-grid,
         .projects-grid,
+        .certs-grid,
         .hero-layout {
           grid-template-columns: 1fr;
         }
@@ -677,6 +739,7 @@
             <li><a class="nav-link" href="#hero">Home</a></li>
             <li><a class="nav-link" href="#about">About</a></li>
             <li><a class="nav-link" href="#skills">Skills</a></li>
+            <li><a class="nav-link" href="#certifications">Certifications</a></li>
             <li><a class="nav-link" href="#experience">Experience</a></li>
             <li><a class="nav-link" href="#projects">Projects</a></li>
             <li><a class="nav-link" href="#contact">Contact</a></li>
@@ -720,16 +783,24 @@
           <div class="about-grid">
             <article class="panel">
               <p class="about-text">
-                I am a Software Engineering student specializing in cybersecurity and secure SDLC, with hands-on experience across side-channel research, secure migrations, and full-stack delivery. I enjoy turning complex technical constraints into reliable systems that teams can maintain. My work sits at the intersection of secure architecture, pragmatic product engineering, and execution discipline.
+                I am a Software Engineering student specializing in cybersecurity and secure SDLC, with hands-on experience across side-channel vulnerability research, network security simulation, and full-stack delivery. ISC2 Certified in Cybersecurity (CC), I apply machine learning to threat detection and lead secure migrations at scale. I enjoy turning complex technical constraints into reliable systems that teams can maintain — work that sits at the intersection of secure architecture, pragmatic product engineering, and execution discipline.
               </p>
             </article>
             <aside class="panel">
-              <h3 class="currently-title">Currently</h3>
-              <ul class="currently-list">
-                <li>Building robust migration workflows in .NET Core MVC for large-scale university sports operations.</li>
-                <li>Learning deeper kernel and systems-level performance/security design.</li>
-                <li>Reading and applying secure architecture principles in cloud-native systems.</li>
-              </ul>
+              <div class="edu-block">
+                <h3 class="currently-title">Education</h3>
+                <p class="edu-text">
+                  University of Western Ontario — B.Eng. Software Engineering. Expected May 2027, London, ON. Varsity Table Tennis MVP (2024–2025).
+                </p>
+              </div>
+              <div class="edu-block">
+                <h3 class="currently-title">Currently</h3>
+                <ul class="currently-list">
+                  <li>Studying for the eLearnSecurity Junior Penetration Tester (eJPT) certification with INE.</li>
+                  <li>Building robust migration workflows in .NET Core MVC for large-scale university sports operations.</li>
+                  <li>Researching kernel and systems-level performance and security design.</li>
+                </ul>
+              </div>
             </aside>
           </div>
         </div>
@@ -808,16 +879,54 @@
         </div>
       </section>
 
+      <section class="section" id="certifications">
+        <div class="container reveal">
+          <div class="section-header">
+            <h2 class="section-title">Certifications</h2>
+            <span class="section-index">03</span>
+          </div>
+
+          <div class="certs-grid">
+            <article class="panel cert-card">
+              <span class="cert-status earned">Earned</span>
+              <h3 class="cert-name">Certified in Cybersecurity (CC)</h3>
+              <p class="cert-issuer">ISC2</p>
+              <p class="cert-desc">
+                Foundational cybersecurity certification covering security principles, access controls, network security, and security operations.
+              </p>
+            </article>
+
+            <article class="panel cert-card">
+              <span class="cert-status earned">Earned</span>
+              <h3 class="cert-name">Azure Fundamentals (AZ-900)</h3>
+              <p class="cert-issuer">Microsoft</p>
+              <p class="cert-desc">
+                Cloud concepts, core Azure services, security, identity, governance, and pricing across cloud-native environments.
+              </p>
+            </article>
+
+            <article class="panel cert-card">
+              <span class="cert-status progress">In Progress</span>
+              <h3 class="cert-name">Junior Penetration Tester (eJPT)</h3>
+              <p class="cert-issuer">INE</p>
+              <p class="cert-desc">
+                Hands-on offensive security training in enumeration, exploitation, and penetration testing. Currently studying with INE.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="section" id="experience">
         <div class="container reveal">
           <div class="section-header">
             <h2 class="section-title">Experience</h2>
-            <span class="section-index">03</span>
+            <span class="section-index">04</span>
           </div>
 
           <ul class="timeline">
             <li class="timeline-item">
-              <h3 class="role-line">NCTTA · Software Developer · 2025 – Present</h3>
+              <h3 class="role-line">NCTTA · Software Developer · Nov 2025 – Present</h3>
               <p class="role-meta">Remote / Toronto, ON</p>
               <ul class="impact-list">
                 <li>Migrated legacy PHP workflows to .NET Core MVC, preserving content parity and improving tournament operations across 150+ universities.</li>
@@ -826,7 +935,7 @@
             </li>
 
             <li class="timeline-item">
-              <h3 class="role-line">Match · Software Developer Intern · 2024</h3>
+              <h3 class="role-line">Match · Software Developer Intern · Jan 2024 – Apr 2024</h3>
               <p class="role-meta">Toronto, ON</p>
               <ul class="impact-list">
                 <li>Engineered multiple iOS-facing interfaces and optimized API integration between React Native clients and Django services, accelerating delivery by two weeks.</li>
@@ -834,7 +943,7 @@
             </li>
 
             <li class="timeline-item">
-              <h3 class="role-line">LeakSight (Western Cyber Society) · Backend Developer · 2025 – Present</h3>
+              <h3 class="role-line">LeakSight (Western Cyber Society) · Backend Developer · Dec 2025 – Present</h3>
               <p class="role-meta">London, ON</p>
               <ul class="impact-list">
                 <li>Developed a modular Python side-channel analysis pipeline covering ingestion, training, evaluation, and visualization for leakage classification research.</li>
@@ -848,10 +957,49 @@
         <div class="container reveal">
           <div class="section-header">
             <h2 class="section-title">Projects</h2>
-            <span class="section-index">04</span>
+            <span class="section-index">05</span>
           </div>
 
           <ul class="timeline">
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">Nimble</h3>
+                <span class="section-index">May 2026 - Present</span>
+              </div>
+              <p class="project-meta">Founder &amp; Full-Stack Engineer · Cloudflare Workers, D1 (SQLite), JavaScript, Web Crypto · Toronto, ON</p>
+              <ul class="impact-list">
+                <li>Engineered an OWASP-aligned admin auth layer with PBKDF2-SHA256 password hashing, HMAC-signed stateless session cookies, and per-IP brute-force lockout, using constant-time comparison to neutralize timing-based user enumeration.</li>
+                <li>Architected a serverless full-stack on Cloudflare Workers + D1 for waitlist capture, chat-lead routing, and visitor analytics, batching 11 SQL queries into a single edge round-trip and eliminating $120+/yr of managed-DB cost.</li>
+                <li>Designed a vanilla-JavaScript analytics dashboard with inline SVG sparklines and CSV export, enforcing CSP, X-Frame-Options: DENY, and Cache-Control: no-store on every authenticated response to harden against XSS and clickjacking.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">Docket — AI Desktop Pet Overlay</h3>
+                <span class="section-index">May 2026 - Present</span>
+              </div>
+              <p class="project-meta">Solo Developer · Electron, Node.js, Ollama (Llama 3.2), OAuth 2.0 · London, ON</p>
+              <ul class="impact-list">
+                <li>Engineered a frameless, always-on-top Electron overlay with multi-monitor detection and a 60 Hz transparent movement loop spanning mixed-DPI displays.</li>
+                <li>Integrated a local Llama 3.2 model via Ollama for personality-driven dialogue and a natural-language intent router that converts utterances like "dentist Friday 10am" into structured calendar events and todos.</li>
+                <li>Hardened OAuth 2.0 flows for Google Calendar and Spotify PKCE by encrypting tokens through the OS keychain (Windows DPAPI/Keychain), sandboxing renderers, pinning TLS 1.2, and locking down navigation with a strict CSP.</li>
+              </ul>
+            </li>
+
+            <li class="timeline-item">
+              <div class="project-head">
+                <h3 class="role-line">Finance Dashboard</h3>
+                <span class="section-index">May 2026</span>
+              </div>
+              <p class="project-meta">Personal · TypeScript, CSV, Azure, Node.js, Power BI · London, ON</p>
+              <ul class="impact-list">
+                <li>Built a full-stack personal finance dashboard in TypeScript with a modular backend API and modern frontend for tracking transactions, categories, and monthly summaries.</li>
+                <li>Implemented robust CSV import pipelines for bank and card formats, with validation and normalization logic to automate ingestion of financial data.</li>
+                <li>Engineered Power BI embedded analytics with Azure AD authentication, secure embed token generation, and automated dataset sync, backed by Vitest/Jest coverage across auth, import, and sync layers.</li>
+              </ul>
+            </li>
+
             <li class="timeline-item">
               <div class="project-head">
                 <h3 class="role-line">Kogtion Auction (Kognitive Solutions Inc.)</h3>
@@ -1019,7 +1167,7 @@
         <div class="container reveal">
           <div class="section-header">
             <h2 class="section-title">Contact</h2>
-            <span class="section-index">05</span>
+            <span class="section-index">06</span>
           </div>
 
           <article class="panel contact-panel">
