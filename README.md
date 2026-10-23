@@ -52,7 +52,7 @@ The CV is the source of truth. Nothing goes on the site that isn't in it.
 
 The current roles in the hero ("Now"), the structured data in the page head, and the graduation date are all computed from the data, so they update automatically.
 
-Some repository links in `projects.ts` came from the previous version of this site rather than the CV. They are marked with a comment.
+Some repository links in `projects.ts` came from the previous version of this site rather than the CV. They are marked with a comment. Projects added from a direct description before they reached the CV are marked "Not in the CV yet"; keep them through a CV update unless you mean to remove them.
 
 ## Replacing the photo
 
