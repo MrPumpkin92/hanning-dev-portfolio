@@ -21,6 +21,35 @@ export const projects: Project[] = [
     tech: ['React', 'TypeScript', 'Capacitor', 'Swift', 'Supabase', 'Vitest'],
     featured: true,
   },
+  // Not in the CV yet: from a project description Han Ning provided directly (Oct 2026).
+  {
+    name: 'Quoted',
+    tagline: 'Keep the words that move you',
+    role: 'Solo founder & engineer',
+    context: 'In beta',
+    period: { start: '2026' },
+    summary:
+      'People save quotes in screenshots and notes apps, then never see them again. Quoted keeps them in one iPhone library and brings them back a few times a day through reminders and Home Screen and Lock Screen widgets. Currently in beta.',
+    highlights: [
+      'Quotes keep bold, italic and underline, and pasting “quote, author” splits them automatically. Reminders let you choose how many a day, the time window and the days, in order or shuffled, and the widgets (three sizes) always show the quote from the latest reminder.',
+      'No sign-up: the app creates a private account on first launch with anonymous auth. Friends are added by username, and quotes shared with a note land in a “Shared with you” inbox, with report and block.',
+      'Built in Swift 6 with strict concurrency, with pure logic and backend access split into separate modules. The Supabase backend has row-level security on every table, a TypeScript Edge Function for account deletion and a daily pg_cron cleanup of abandoned accounts; supabase-swift is the only third-party dependency.',
+      'Covered by 220 Swift Testing unit and integration tests, 460 pgTAP database assertions and an XCUITest end-to-end test, all run against a local Supabase stack in Docker.',
+    ],
+    tech: [
+      'Swift 6',
+      'SwiftUI',
+      'WidgetKit',
+      'UserNotifications',
+      'Supabase (PostgreSQL, Auth, Row-Level Security, Edge Functions, pg_cron)',
+      'TypeScript',
+      'Swift Testing',
+      'XCUITest',
+      'pgTAP',
+      'Docker',
+    ],
+    featured: true,
+  },
   {
     name: 'Hermes',
     tagline: 'A running app where friends cheer you on, live',

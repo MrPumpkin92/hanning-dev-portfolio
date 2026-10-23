@@ -10,6 +10,7 @@ Follow "Updating content from a new CV" in README.md. In short:
 - Report additions, removals and changes to the user, then edit `src/data` only. Don't touch components or styles for a content update unless the new content can't be displayed otherwise.
 - Keep the phone number off the site even though the CV includes it.
 - Links commented "carried over from the previous version of this site" are not in the CV. Keep them unless the user says otherwise, and say so if one stops resolving.
+- Entries commented "Not in the CV yet" came from descriptions the user gave directly. Don't drop them just because a new CV leaves them out; ask first. Once the CV covers one, use the CV's facts and remove the comment.
 - If the name, school or headline change, regenerate `public/og.jpg`.
 - Finish with `npm run check && npm run build`.
 
