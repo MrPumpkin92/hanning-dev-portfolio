@@ -1,0 +1,226 @@
+---
+import { Picture } from 'astro:assets';
+import { education } from '../data/education';
+import { experience } from '../data/experience';
+import { profile } from '../data/profile';
+import { isCurrent } from '../lib/format';
+import { withBase } from '../lib/url';
+import ExternalLink from './ExternalLink.astro';
+import Icon from './Icon.astro';
+
+const currentRoles = experience.filter((job) => isCurrent(job.period));
+---
+
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="container hero__inner">
+    <div class="hero__text">
+      <p class="hero__eyebrow" style="--enter: 0">{education.field} · {education.school}</p>
+      <h1 class="hero__name" id="hero-title" style="--enter: 1">{profile.name}</h1>
+      <p class="hero__headline" style="--enter: 2">{profile.headline}</p>
+
+      {
+        currentRoles.length > 0 && (
+          <div class="hero__now" style="--enter: 3">
+            <span class="hero__now-label">
+              <span class="hero__dot" aria-hidden="true" />
+              Now
+            </span>
+            <ul class="hero__roles" role="list">
+              {currentRoles.map((job) => (
+                <li>
+                  {job.role} at {job.company}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+
+      <div class="hero__actions" style="--enter: 4">
+        <a class="button button--primary" href="#projects">
+          View projects
+          <Icon name="arrow-down" />
+        </a>
+        <a class="button button--secondary" href="#contact">Get in touch</a>
+      </div>
+
+      <ul class="hero__links inline-list" role="list" style="--enter: 5">
+        <li><ExternalLink class="link" href={profile.links.linkedin}>LinkedIn</ExternalLink></li>
+        <li><ExternalLink class="link" href={profile.links.github}>GitHub</ExternalLink></li>
+        <li><a class="link" href={`mailto:${profile.email}`}>Email</a></li>
+        {
+          profile.resume && (
+            <li>
+              <ExternalLink class="link" href={withBase(profile.resume)}>
+                Résumé (PDF)
+              </ExternalLink>
+            </li>
+          )
+        }
+      </ul>
+    </div>
+
+    <div class="hero__portrait" style={`--photo-focus: ${profile.photo.focus}`}>
+      <Picture
+        src={profile.photo.src}
+        alt={profile.photo.alt}
+        widths={[192, 384, 576, 816]}
+        sizes="(min-width: 64rem) 22rem, (min-width: 48rem) 15rem, 5.5rem"
+        formats={['avif', 'webp']}
+        priority
+        class="hero__photo"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(2.5rem, 1rem + 6vw, 7rem) var(--section-space);
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .hero__eyebrow {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .hero__name {
+    margin-top: var(--space-3);
+    font-family: var(--font-serif);
+    font-size: var(--text-display);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: var(--leading-tight);
+  }
+
+  .hero__headline {
+    max-width: 34ch;
+    margin-top: var(--space-5);
+    font-size: var(--text-lg);
+    line-height: 1.5;
+  }
+
+  .hero__now {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .hero__now-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .hero__roles {
+    display: grid;
+    gap: var(--space-1);
+    list-style: none;
+  }
+
+  .hero__dot {
+    width: 0.4375rem;
+    height: 0.4375rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-7);
+  }
+
+  .hero__links {
+    margin-top: var(--space-6);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .hero__portrait {
+    order: -1;
+    width: 5.5rem;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--color-surface-sunken);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .hero__portrait :global(.hero__photo) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--photo-focus);
+  }
+
+  @media (max-width: 23.4375rem) {
+    .hero__actions .button {
+      flex: 1 1 auto;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .hero__inner {
+      grid-template-columns: minmax(0, 1fr) 15rem;
+      align-items: center;
+      gap: var(--space-8);
+    }
+
+    .hero__portrait {
+      order: 0;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .hero__inner {
+      grid-template-columns: minmax(0, 1fr) 22rem;
+      gap: var(--space-10);
+    }
+  }
+
+  /* Entrance: each line rises in turn. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero [style*='--enter'],
+    .hero__portrait {
+      animation: hero-enter 700ms var(--ease-out) both;
+      animation-delay: calc(var(--enter, 0) * 70ms);
+    }
+
+    .hero__portrait {
+      --enter: 2;
+      animation-name: hero-portrait-enter;
+    }
+  }
+
+  @keyframes hero-enter {
+    from {
+      opacity: 0;
+      translate: 0 0.75rem;
+    }
+  }
+
+  @keyframes hero-portrait-enter {
+    from {
+      opacity: 0;
+      scale: 0.98;
+    }
+  }
+</style>

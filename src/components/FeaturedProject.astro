@@ -1,0 +1,119 @@
+---
+import type { Project } from '../data/types';
+import { formatPeriod } from '../lib/format';
+import ExternalLink from './ExternalLink.astro';
+import TechList from './TechList.astro';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const context = [project.role, project.context].filter(Boolean).join(' · ');
+---
+
+<article class="feature" data-reveal>
+  <header class="feature__header">
+    <p class="feature__meta meta">
+      <span>{context}</span>
+      <span>{formatPeriod(project.period)}</span>
+    </p>
+    <h3 class="feature__name">{project.name}</h3>
+    {project.tagline && <p class="feature__tagline">{project.tagline}</p>}
+  </header>
+
+  <p class="feature__summary">{project.summary}</p>
+
+  {
+    project.highlights && (
+      <ul class="feature__highlights dash-list">
+        {project.highlights.map((highlight) => (
+          <li>{highlight}</li>
+        ))}
+      </ul>
+    )
+  }
+
+  <footer class="feature__footer">
+    <TechList items={project.tech} />
+    {
+      project.links?.map((link) => (
+        <ExternalLink class="feature__link link" href={link.href}>
+          {link.label}
+        </ExternalLink>
+      ))
+    }
+  </footer>
+</article>
+
+<style>
+  .feature {
+    padding: var(--space-5) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    transition:
+      border-color var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+
+  .feature:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+  }
+
+  .feature__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-1) var(--space-4);
+  }
+
+  .feature__name {
+    margin-top: var(--space-4);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-snug);
+  }
+
+  .feature__tagline {
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+  }
+
+  .feature__summary {
+    max-width: var(--measure);
+    margin-top: var(--space-5);
+  }
+
+  .feature__highlights {
+    max-width: var(--measure);
+    margin-top: var(--space-4);
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .feature__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-5);
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .feature__footer :global(.feature__link) {
+    font-size: var(--text-sm);
+  }
+
+  @media (min-width: 40rem) {
+    .feature {
+      padding: var(--space-7);
+    }
+  }
+</style>

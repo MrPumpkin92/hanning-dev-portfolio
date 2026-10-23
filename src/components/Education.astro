@@ -1,0 +1,136 @@
+---
+import { certifications, education } from '../data/education';
+import { formatDate } from '../lib/format';
+import Section from './Section.astro';
+
+const graduation = `${education.expected ? 'Expected ' : ''}${formatDate(education.graduation)}`;
+---
+
+<Section id="education">
+  <div class="school" data-reveal>
+    <div class="school__header">
+      <h3 class="school__name">{education.school}</h3>
+      <p class="meta">{graduation}</p>
+    </div>
+    <p class="school__degree">{education.degree}, {education.field}</p>
+    <p class="meta school__location">{education.location}</p>
+
+    <dl class="school__details">
+      <div>
+        <dt>Coursework</dt>
+        <dd>
+          <ul class="comma-list" role="list">
+            {education.coursework.map((course) => <li>{course}</li>)}
+          </ul>
+        </dd>
+      </div>
+      {
+        education.activities.map((activity) => (
+          <div>
+            <dt>{activity.label}</dt>
+            <dd>
+              <span class="school__activity">{activity.title}</span>, {activity.detail}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+
+  {
+    certifications.length > 0 && (
+      <div class="certs" data-reveal>
+        <h3 class="certs__title">Certifications</h3>
+        <ul class="certs__list" role="list">
+          {certifications.map((cert) => (
+            <li class="cert">
+              <span class="cert__name">{cert.name}</span>
+              <span class="cert__issuer meta">{cert.issuer}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+</Section>
+
+<style>
+  .school__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-1) var(--space-4);
+  }
+
+  .school__name {
+    font-size: var(--text-md);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .school__degree {
+    margin-top: var(--space-1);
+  }
+
+  .school__location {
+    margin-top: var(--space-1);
+  }
+
+  .school__details {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--measure);
+    margin-top: var(--space-5);
+  }
+
+  .school__details dt {
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .school__details dd {
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+  }
+
+  .school__activity {
+    color: var(--color-text);
+  }
+
+  .certs {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .certs__title {
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .certs__list {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    list-style: none;
+  }
+
+  .cert {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  @media (min-width: 40rem) {
+    .certs__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

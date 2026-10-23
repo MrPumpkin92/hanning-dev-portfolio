@@ -1,0 +1,129 @@
+---
+import { projects } from '../data/projects';
+import FeaturedProject from './FeaturedProject.astro';
+import Icon from './Icon.astro';
+import ProjectCard from './ProjectCard.astro';
+import Section from './Section.astro';
+
+/** How many of the non-featured projects show before "Show all". */
+const INITIALLY_VISIBLE = 6;
+
+const featured = projects.filter((project) => project.featured);
+const others = projects.filter((project) => !project.featured);
+const hiddenCount = Math.max(others.length - INITIALLY_VISIBLE, 0);
+---
+
+<Section id="projects">
+  <div class="featured">
+    {featured.map((project) => <FeaturedProject project={project} />)}
+  </div>
+
+  {
+    others.length > 0 && (
+      <div class="more">
+        <h3 class="more__title" data-reveal>
+          More projects
+        </h3>
+        <ul class="more__grid" id="more-projects" role="list" data-reveal>
+          {others.map((project, index) => (
+            <li data-collapsible-item={index >= INITIALLY_VISIBLE ? '' : undefined}>
+              <ProjectCard project={project} />
+            </li>
+          ))}
+        </ul>
+        {hiddenCount > 0 && (
+          <button
+            class="more__toggle button button--secondary"
+            type="button"
+            aria-controls="more-projects"
+            aria-expanded="false"
+            data-collapsible-toggle
+            data-label-collapsed={`Show ${hiddenCount} more`}
+            data-label-expanded="Show fewer"
+            data-print-hidden
+            hidden
+          >
+            <span data-collapsible-label>Show {hiddenCount} more</span>
+            <Icon name="arrow-down" />
+          </button>
+        )}
+      </div>
+    )
+  }
+</Section>
+
+<script>
+  // Without JavaScript every project stays visible; with it, the long tail
+  // collapses behind a toggle.
+  const toggle = document.querySelector<HTMLButtonElement>('[data-collapsible-toggle]');
+  const label = toggle?.querySelector('[data-collapsible-label]');
+  const items = [...document.querySelectorAll<HTMLElement>('[data-collapsible-item]')];
+
+  if (toggle && label && items.length) {
+    const setExpanded = (expanded: boolean) => {
+      items.forEach((item) => (item.hidden = !expanded));
+      toggle.setAttribute('aria-expanded', String(expanded));
+      label.textContent = (expanded ? toggle.dataset.labelExpanded : toggle.dataset.labelCollapsed) ?? '';
+    };
+
+    setExpanded(false);
+    toggle.hidden = false;
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') !== 'true';
+      setExpanded(expanded);
+      if (!expanded) toggle.scrollIntoView({ block: 'nearest' });
+    });
+  }
+</script>
+
+<style>
+  .featured {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .more {
+    margin-top: var(--space-9);
+  }
+
+  .more__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .more__grid {
+    display: grid;
+    gap: var(--space-6) var(--space-7);
+    margin-top: var(--space-5);
+    list-style: none;
+  }
+
+  .more__toggle {
+    margin-top: var(--space-7);
+  }
+
+  .more__toggle[aria-expanded='true'] :global(.icon) {
+    rotate: 180deg;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-collapsible-item] {
+      animation: item-enter var(--duration-slow) var(--ease-out);
+    }
+  }
+
+  @keyframes item-enter {
+    from {
+      opacity: 0;
+      translate: 0 0.5rem;
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .more__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

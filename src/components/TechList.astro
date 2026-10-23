@@ -1,0 +1,17 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="tech inline-list meta" aria-label="Built with">
+  {items.map((item) => <li>{item}</li>)}
+</ul>
+
+<style>
+  .tech {
+    letter-spacing: 0;
+  }
+</style>

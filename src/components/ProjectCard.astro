@@ -1,0 +1,102 @@
+---
+import type { Project } from '../data/types';
+import { formatPeriod } from '../lib/format';
+import Icon from './Icon.astro';
+import TechList from './TechList.astro';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const context = [project.role, project.context].filter(Boolean).join(' · ');
+// The first link, if any, makes the whole card clickable.
+const link = project.links?.[0];
+---
+
+<article class:list={['card', { 'card--linked': link }]}>
+  <p class="card__meta meta">{formatPeriod(project.period)}{context && ` · ${context}`}</p>
+  <h4 class="card__name">
+    {
+      link ? (
+        <a class="card__link" href={link.href} target="_blank" rel="noopener noreferrer">
+          {project.name}
+          <Icon name="arrow-up-right" size={14} class="card__icon" />
+          <span class="sr-only">({link.label}, opens in a new tab)</span>
+        </a>
+      ) : (
+        project.name
+      )
+    }
+  </h4>
+  <p class="card__summary">{project.summary}</p>
+  <TechList items={project.tech} />
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    height: 100%;
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+    transition: border-color var(--duration-base) var(--ease-out);
+  }
+
+  .card__name {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    text-decoration: none;
+  }
+
+  /* Stretch the link over the whole card. */
+  .card__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .card__link :global(.card__icon) {
+    color: var(--color-text-subtle);
+    transition:
+      translate var(--duration-base) var(--ease-out),
+      color var(--duration-fast) var(--ease-out);
+  }
+
+  .card__summary {
+    flex: 1;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .card--linked:hover {
+    border-color: var(--color-accent);
+  }
+
+  .card--linked:hover .card__link {
+    color: var(--color-accent);
+  }
+
+  .card--linked:hover :global(.card__icon) {
+    color: currentColor;
+    translate: 1.5px -1.5px;
+  }
+
+  .card__link:focus-visible {
+    outline: none;
+  }
+
+  .card__link:focus-visible::after {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+  }
+</style>

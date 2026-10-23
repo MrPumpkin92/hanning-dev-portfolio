@@ -1,0 +1,40 @@
+---
+import Icon from '../components/Icon.astro';
+import { profile } from '../data/profile';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/url';
+---
+
+<BaseLayout title={`Page not found · ${profile.name}`} noindex>
+  <main id="main" class="not-found container" tabindex="-1">
+    <p class="meta">404</p>
+    <h1 class="not-found__title">This page doesn’t exist.</h1>
+    <p class="not-found__text">The link may be out of date, or the address mistyped.</p>
+    <a class="button button--primary" href={withBase('')}>
+      Back to {profile.name}
+      <Icon name="arrow-right" />
+    </a>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    place-content: center;
+    justify-items: start;
+    gap: var(--space-4);
+    min-height: 100dvh;
+  }
+
+  .not-found__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .not-found__text {
+    margin-bottom: var(--space-4);
+    color: var(--color-text-muted);
+  }
+</style>

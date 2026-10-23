@@ -1,0 +1,42 @@
+---
+/** A small set of 24×24 stroke icons. Decorative: always hidden from assistive tech. */
+const paths = {
+  'arrow-right': '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  'arrow-down': '<path d="M12 5v14M6 13l6 6 6-6"/>',
+  'arrow-up': '<path d="M12 19V5M6 11l6-6 6 6"/>',
+  'arrow-up-right': '<path d="M7 17 17 7M8 7h9v9"/>',
+  copy: '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3"/>',
+  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  menu: '<path d="M4 9h16M4 15h16"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>',
+} as const;
+
+interface Props {
+  name: keyof typeof paths;
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 16, class: className } = Astro.props;
+---
+
+<svg
+  class:list={['icon', `icon--${name}`, className]}
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+  set:html={paths[name]}
+/>
+
+<style>
+  .icon {
+    flex: none;
+  }
+</style>

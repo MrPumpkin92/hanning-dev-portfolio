@@ -1,0 +1,282 @@
+---
+import { profile } from '../data/profile';
+import { site } from '../data/site';
+import ExternalLink from './ExternalLink.astro';
+import Icon from './Icon.astro';
+---
+
+<header class="site-header" data-site-header>
+  <div class="container site-header__inner">
+    <a class="wordmark" href="#top">{profile.name}</a>
+
+    <nav class="nav" aria-label="Sections">
+      <ul class="nav__list" role="list">
+        {
+          site.sections.map((section) => (
+            <li>
+              <a class="nav__link" href={`#${section.id}`} data-nav-link>
+                {section.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <button class="menu-button" type="button" popovertarget="mobile-menu">
+      <span class="menu-button__closed"><Icon name="menu" size={18} />Menu</span>
+      <span class="menu-button__open"><Icon name="close" size={18} />Close</span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" popover>
+    <nav class="container" aria-label="Sections">
+      <ul class="mobile-menu__list" role="list">
+        {
+          site.sections.map((section) => (
+            <li>
+              <a class="mobile-menu__link" href={`#${section.id}`} data-nav-link>
+                {section.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="mobile-menu__contact inline-list" role="list">
+        <li><a class="link" href={`mailto:${profile.email}`}>Email</a></li>
+        <li><ExternalLink class="link" href={profile.links.linkedin}>LinkedIn</ExternalLink></li>
+        <li><ExternalLink class="link" href={profile.links.github}>GitHub</ExternalLink></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  const menu = document.querySelector<HTMLElement>('#mobile-menu');
+  const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')];
+
+  // Close the mobile menu once a destination is picked, or if the layout widens.
+  menu?.addEventListener('click', (event) => {
+    if ((event.target as Element).closest('a')) menu.hidePopover();
+  });
+  matchMedia('(min-width: 48rem)').addEventListener('change', (event) => {
+    if (event.matches && menu?.matches(':popover-open')) menu.hidePopover();
+  });
+
+  const sections = [...new Set(navLinks.map((link) => link.hash.slice(1)))]
+    .map((id) => document.getElementById(id))
+    .filter((section): section is HTMLElement => section !== null);
+
+  // The current section is the last one whose top has passed 40% of the
+  // viewport, or the final section once the page can't scroll any further.
+  function currentSectionId(): string | null {
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    if (atBottom) return sections.at(-1)?.id ?? null;
+    const line = window.innerHeight * 0.4;
+    return sections.findLast((section) => section.getBoundingClientRect().top <= line)?.id ?? null;
+  }
+
+  let frame = 0;
+  function update() {
+    frame = 0;
+    header?.toggleAttribute('data-scrolled', window.scrollY > 8);
+    const id = currentSectionId();
+    for (const link of navLinks) {
+      if (link.hash === `#${id}`) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    }
+  }
+  const scheduleUpdate = () => (frame ||= requestAnimationFrame(update));
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate, { passive: true });
+  update();
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color var(--duration-base) var(--ease-out),
+      border-color var(--duration-base) var(--ease-out);
+  }
+
+  .site-header[data-scrolled],
+  .site-header:has(.mobile-menu:popover-open) {
+    border-bottom-color: var(--color-border);
+    background: var(--color-header);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    backdrop-filter: blur(14px) saturate(1.4);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    height: var(--header-height);
+  }
+
+  .wordmark {
+    font-family: var(--font-serif);
+    font-size: var(--text-md);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* Inline navigation (tablet and up) */
+
+  .nav {
+    display: none;
+  }
+
+  .nav__list {
+    display: flex;
+    gap: var(--space-1);
+    list-style: none;
+  }
+
+  .nav__link {
+    position: relative;
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .nav__link::after {
+    content: '';
+    position: absolute;
+    right: var(--space-3);
+    bottom: 0.2rem;
+    left: var(--space-3);
+    height: 1px;
+    background: var(--color-accent);
+    scale: 0 1;
+    transition: scale var(--duration-base) var(--ease-out);
+  }
+
+  .nav__link:hover,
+  .nav__link[aria-current] {
+    color: var(--color-text);
+  }
+
+  .nav__link[aria-current]::after {
+    scale: 1 1;
+  }
+
+  /* Menu button and panel (phones) */
+
+  .menu-button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    margin-right: calc(var(--space-3) * -1);
+    padding: 0 var(--space-3);
+    border: 0;
+    border-radius: var(--radius-full);
+    background: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .menu-button > span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .menu-button__open,
+  .site-header:has(.mobile-menu:popover-open) .menu-button__closed {
+    display: none !important;
+  }
+
+  .site-header:has(.mobile-menu:popover-open) .menu-button__open {
+    display: inline-flex !important;
+  }
+
+  .mobile-menu {
+    inset: var(--header-height) 0 0;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: var(--space-5) 0 var(--space-8);
+    border: 0;
+    background: var(--color-bg);
+    color: inherit;
+    opacity: 0;
+    translate: 0 calc(var(--space-2) * -1);
+    transition:
+      opacity var(--duration-base) var(--ease-out),
+      translate var(--duration-base) var(--ease-out),
+      overlay var(--duration-base) allow-discrete,
+      display var(--duration-base) allow-discrete;
+  }
+
+  .mobile-menu:popover-open {
+    opacity: 1;
+    translate: none;
+  }
+
+  @starting-style {
+    .mobile-menu:popover-open {
+      opacity: 0;
+      translate: 0 calc(var(--space-2) * -1);
+    }
+  }
+
+  .mobile-menu__list {
+    list-style: none;
+  }
+
+  .mobile-menu__link {
+    display: block;
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    letter-spacing: var(--tracking-tight);
+    text-decoration: none;
+  }
+
+  .mobile-menu__link[aria-current] {
+    color: var(--color-accent);
+  }
+
+  .mobile-menu__contact {
+    margin-top: var(--space-6);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  :global(html:has(.mobile-menu:popover-open)) {
+    overflow: hidden;
+  }
+
+  @media (min-width: 48rem) {
+    .nav {
+      display: block;
+    }
+
+    .menu-button,
+    .mobile-menu {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu {
+      transition: none;
+    }
+  }
+</style>
