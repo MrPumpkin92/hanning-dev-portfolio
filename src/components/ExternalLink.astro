@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+---
+
+<a class:list={['external', className]} href={href} target="_blank" rel="noopener noreferrer">
+  <slot /><Icon name="arrow-up-right" size={13} class="external__icon" /><span class="sr-only">
+    (opens in a new tab)</span
+  >
+</a>
+
+<style>
+  .external {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2em;
+  }
+
+  .external :global(.external__icon) {
+    color: var(--color-text-subtle);
+    transition:
+      translate var(--duration-base) var(--ease-out),
+      color var(--duration-fast) var(--ease-out);
+  }
+
+  .external:hover :global(.external__icon) {
+    color: currentColor;
+    translate: 1.5px -1.5px;
+  }
+</style>

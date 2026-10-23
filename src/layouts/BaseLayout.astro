@@ -1,0 +1,109 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+import { education } from '../data/education';
+import { experience } from '../data/experience';
+import { profile } from '../data/profile';
+import { site } from '../data/site';
+import { isCurrent } from '../lib/format';
+import { withBase } from '../lib/url';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** For pages that shouldn't be indexed, such as the 404 page. */
+  noindex?: boolean;
+}
+
+const {
+  title = `${profile.name} · ${profile.title}`,
+  description = site.description,
+  noindex = false,
+} = Astro.props;
+
+const ogImage = new URL(site.ogImage.path, site.url).href;
+const ogImageAlt = `${profile.name}, ${profile.title}`;
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  url: site.url,
+  email: `mailto:${profile.email}`,
+  jobTitle: profile.title,
+  worksFor: experience
+    .filter((job) => isCurrent(job.period))
+    .map((job) => ({ '@type': 'Organization', name: job.company })),
+  affiliation: { '@type': 'CollegeOrUniversity', name: education.school },
+  sameAs: [profile.links.linkedin, profile.links.github],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={profile.name} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={site.url} />}
+
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafaf7" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111113" />
+
+    <link rel="icon" href={withBase('favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={withBase('favicon-32.png')} sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href={withBase('apple-touch-icon.png')} />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={site.url} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={String(site.ogImage.width)} />
+    <meta property="og:image:height" content={String(site.ogImage.height)} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+
+    <Font cssVariable="--font-inter" preload />
+    <Font cssVariable="--font-newsreader" preload />
+
+    <!-- Lets CSS hide scroll-reveal content only when the script that reveals it can run. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(person)} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+
+    <script>
+      const targets = document.querySelectorAll<HTMLElement>('[data-reveal]');
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+        );
+        targets.forEach((target) => observer.observe(target));
+      } else {
+        targets.forEach((target) => target.classList.add('is-revealed'));
+      }
+    </script>
+  </body>
+</html>

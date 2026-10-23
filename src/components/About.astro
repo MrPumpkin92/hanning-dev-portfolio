@@ -1,0 +1,28 @@
+---
+import { profile } from '../data/profile';
+import Section from './Section.astro';
+
+const [lead, ...rest] = profile.about;
+---
+
+<Section id="about">
+  <div class="about" data-reveal>
+    <p class="about__lead">{lead}</p>
+    {rest.map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+</Section>
+
+<style>
+  .about {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--measure);
+    color: var(--color-text-muted);
+  }
+
+  .about__lead {
+    color: var(--color-text);
+    font-size: var(--text-lg);
+    line-height: 1.55;
+  }
+</style>

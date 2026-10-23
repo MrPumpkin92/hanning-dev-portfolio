@@ -1,0 +1,117 @@
+---
+import { profile } from '../data/profile';
+import { withBase } from '../lib/url';
+import ExternalLink from './ExternalLink.astro';
+import Icon from './Icon.astro';
+import Section from './Section.astro';
+---
+
+<Section id="contact">
+  <div class="contact" data-reveal>
+    <div class="contact__email">
+      <a class="contact__address" href={`mailto:${profile.email}`}>{profile.email}</a>
+      <button class="contact__copy button button--secondary" type="button" data-copy={profile.email} hidden>
+        <Icon name="copy" class="contact__copy-icon" />
+        <Icon name="check" class="contact__check-icon" />
+        <span data-copy-label>Copy</span><span class="sr-only"> email address</span>
+      </button>
+      <span class="sr-only" role="status" data-copy-status></span>
+    </div>
+
+    <ul class="contact__links inline-list" role="list">
+      <li><ExternalLink class="link" href={profile.links.linkedin}>LinkedIn</ExternalLink></li>
+      <li><ExternalLink class="link" href={profile.links.github}>GitHub</ExternalLink></li>
+      {
+        profile.resume && (
+          <li>
+            <ExternalLink class="link" href={withBase(profile.resume)}>
+              Résumé (PDF)
+            </ExternalLink>
+          </li>
+        )
+      }
+    </ul>
+  </div>
+</Section>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-copy]');
+  const label = button?.querySelector('[data-copy-label]');
+  const status = document.querySelector('[data-copy-status]');
+  const address = document.querySelector('.contact__address');
+
+  if (button && label && status && address && navigator.clipboard) {
+    let timer: number | undefined;
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? '');
+      } catch {
+        // Clipboard access can be refused; select the address so it's one keystroke away.
+        getSelection()?.selectAllChildren(address);
+        status.textContent = 'Email address selected';
+        return;
+      }
+      button.toggleAttribute('data-copied', true);
+      label.textContent = 'Copied';
+      status.textContent = 'Email address copied to clipboard';
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        button.toggleAttribute('data-copied', false);
+        label.textContent = 'Copy';
+        status.textContent = '';
+      }, 2000);
+    });
+  }
+</script>
+
+<style>
+  .contact__email {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-5);
+  }
+
+  .contact__address {
+    min-width: 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-snug);
+    overflow-wrap: anywhere;
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-border-strong);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      text-decoration-color var(--duration-fast) var(--ease-out);
+  }
+
+  .contact__address:hover {
+    color: var(--color-accent);
+    text-decoration-color: currentColor;
+  }
+
+  .contact__copy {
+    min-height: 2.25rem;
+    padding-inline: var(--space-4);
+  }
+
+  .contact__copy :global(.contact__check-icon),
+  .contact__copy[data-copied] :global(.contact__copy-icon) {
+    display: none;
+  }
+
+  .contact__copy[data-copied] :global(.contact__check-icon) {
+    display: block;
+    color: var(--color-accent);
+  }
+
+  .contact__links {
+    margin-top: var(--space-6);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

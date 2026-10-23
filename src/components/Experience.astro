@@ -1,0 +1,108 @@
+---
+import { experience } from '../data/experience';
+import { formatPeriod } from '../lib/format';
+import ExternalLink from './ExternalLink.astro';
+import Section from './Section.astro';
+import TechList from './TechList.astro';
+---
+
+<Section id="experience">
+  <ol class="jobs" role="list">
+    {
+      experience.map((job) => (
+        <li class="job" data-reveal>
+          <div class="job__header">
+            <h3 class="job__company">{job.company}</h3>
+            <p class="job__period meta">{formatPeriod(job.period)}</p>
+          </div>
+          <p class="job__role">
+            {job.role}
+            {job.team && <span class="job__team">{` · ${job.team}`}</span>}
+          </p>
+          <p class="job__location meta">{job.location}</p>
+
+          <ul class="job__highlights dash-list">
+            {job.highlights.map((highlight) => (
+              <li>{highlight}</li>
+            ))}
+          </ul>
+
+          <div class="job__footer">
+            <TechList items={job.tech} />
+            {job.links?.map((link) => (
+              <ExternalLink class="job__link link" href={link.href}>
+                {link.label}
+              </ExternalLink>
+            ))}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</Section>
+
+<style>
+  .jobs {
+    display: grid;
+    list-style: none;
+  }
+
+  .job {
+    padding-block: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .job:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .job:last-child {
+    padding-bottom: 0;
+  }
+
+  .job__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-1) var(--space-4);
+  }
+
+  .job__company {
+    font-size: var(--text-md);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .job__role {
+    margin-top: var(--space-1);
+  }
+
+  .job__team {
+    color: var(--color-text-muted);
+  }
+
+  .job__location {
+    margin-top: var(--space-1);
+  }
+
+  .job__highlights {
+    max-width: var(--measure);
+    margin-top: var(--space-4);
+    color: var(--color-text-muted);
+  }
+
+  .job__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-5);
+    margin-top: var(--space-4);
+  }
+
+  .job__footer :global(.job__link) {
+    font-size: var(--text-sm);
+  }
+</style>

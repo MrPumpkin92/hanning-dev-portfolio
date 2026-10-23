@@ -1,0 +1,77 @@
+---
+import { site } from '../data/site';
+
+type SectionId = (typeof site.sections)[number]['id'];
+
+interface Props {
+  id: SectionId;
+}
+
+const { id } = Astro.props;
+const section = site.sections.find((entry) => entry.id === id)!;
+const intro = 'intro' in section ? section.intro : undefined;
+---
+
+<section class="section" id={id} aria-labelledby={`${id}-title`}>
+  <div class="container">
+    <div class="section__inner">
+      <header class="section__header" data-reveal>
+        <h2 class="section__title" id={`${id}-title`}>{section.label}</h2>
+        {intro && <p class="section__intro">{intro}</p>}
+      </header>
+      <div class="section__body">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-bottom: var(--section-space);
+  }
+
+  .section__inner {
+    display: grid;
+    gap: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-snug);
+  }
+
+  .section__intro {
+    max-width: 36ch;
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .section__body {
+    min-width: 0;
+  }
+
+  @media (min-width: 64rem) {
+    .section__inner {
+      grid-template-columns: var(--rail) minmax(0, 1fr);
+      gap: var(--space-9);
+      padding-top: var(--space-8);
+    }
+
+    .section__header {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-6));
+      align-self: start;
+    }
+
+    .section__intro {
+      max-width: none;
+    }
+  }
+</style>

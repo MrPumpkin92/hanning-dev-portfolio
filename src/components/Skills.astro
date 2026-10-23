@@ -1,0 +1,49 @@
+---
+import { skills } from '../data/skills';
+import Section from './Section.astro';
+---
+
+<Section id="skills">
+  <dl class="skills" data-reveal>
+    {
+      skills.map((group) => (
+        <div class="skills__row">
+          <dt class="skills__label">{group.label}</dt>
+          <dd>
+            <ul class="comma-list" role="list">
+              {group.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</Section>
+
+<style>
+  .skills__row {
+    display: grid;
+    gap: var(--space-1) var(--space-6);
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .skills__row:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .skills__label {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  @media (min-width: 40rem) {
+    .skills__row {
+      grid-template-columns: 11rem minmax(0, 1fr);
+      align-items: baseline;
+    }
+  }
+</style>
